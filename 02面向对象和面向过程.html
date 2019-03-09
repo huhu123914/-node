@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #dv{
+            width: 300px;
+            height:300px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" id="btn" value="按钮">
+    <div id="dv"></div>
+    <script>
+        //面向过程方法
+        // document.getElementById('btn').onclick=function(){
+        //     document.getElementById('dv').style.background='yellow'
+        // }
+
+        //面向对象方法
+        // function ChangeStyle(btnId,dvId,color){
+        //     this.btnObj=document.getElementById(btnId);
+        //     this.dvId=document.getElementById(dvId);
+        //     this.color=color;
+        // }
+        // ChangeStyle.prototype.init=function(){
+        //     console.log(this);//当前对象
+        //     var that=this;
+        //     //点击按钮,改变div的背景颜色
+        //     this.btnObj.onclick=function(){
+        //         console.log(this);
+        //         that.dvId.style.backgroundColor=that.color;
+        //     }         
+        // }
+        // var p=new ChangeStyle('btn','dv','yellow');
+        // p.init();
+    </script>
+    <script>
+        function my$(id){
+                return document.getElementById(id);
+        }
+    </script>
+    <script>
+        function ChangeStyle(btnObj,dvObj,json){
+            this.btnObj=btnObj;
+            this.dvObj=dvObj;
+            this.json=json;
+        }
+        ChangeStyle.prototype.init=function(){
+            //点击按钮,改变div多个样式的值
+            var that=this;
+            this.btnObj.onclick=function(){
+                for(var key in that.json){
+                that.dvObj.style[key]=that.json[key];
+                }
+            }
+        }
+        var cs=new ChangeStyle(my$('btn'),my$('dv'),{'width':"500px",'background':'red','height':'500px','opacity':'0.2'})
+        cs.init();
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //内置对象:系统自带的 Math Array String Date
+        // var arr=[10,52,40,5,7];
+        // arr.join('|');
+        // console.log(arr.join('|'));
+        // console.dir(Array);
+        // console.dir(arr);
+        //实例中的方法没有,去创建该实例对象的构造函数的原型对象中找
+
+        //为Array内置对象的原型对象中添加方法
+        Array.prototype.mysort=function(){
+            for(var i=0;i<this.length-1;i++){
+                for(var j=0;j<this.length-i-1;j++){
+                    if(this[j]>this[j+1]){
+                        var temp=this[j];
+                        this[j]=this[j+1];
+                        this[j+1]=temp;
+                    }
+                }
+            }
+        }
+        var arr=new Array(77,8,24,5,74);
+       console.log(arr);
+       arr.mysort();
+       console.log(arr);
+       console.dir(arr);     
+       console.dir(Array);
+       //我们能否为系统的对象的原型中添加方法,相当于改变源码
+       
+       //我希望字符串中有一个倒序字符串的方法
+       String.prototype.myReverse=function(){
+           for(var i=this.length-1;i>=0;i--){
+               console.log(this[i]);
+           }
+       }
+       var str='abcdefgh';
+       str.myReverse();
+    </script>
+</body>
+</html>

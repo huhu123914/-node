@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //通过自调用函数产生一个随机数对象,在自调用函数外面,通过调用该随机数对象的方法产生随机数
+    (function(win){
+        //产生随机数对象的构造函数
+        function Random(){
+        }
+        //在原型对象中添加方法
+        Random.prototype.getRandom=function(max,min){
+            return Math.floor(Math.random()*(max-min)+min);//0-49
+        }
+        //实例随机数对象
+//     var rm=new Random();
+//    console.log(rm.getRandom());
+   win.random=new Random();
+    })(window);
+    console.log(random.getRandom(50,10));
+           //如何把局部变量变成全局变量
+        //---把局部变量给window下的一个属性就可以了
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .map{
+            width:800px;
+            height:600px;
+            background: #ccc;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="map"></div>
+    <script>
+
+        /*
+         把创建后的子元素追加到父级元素中
+        父元素.appendChild(子元素);
+
+        //创建元素的第三种方式
+          var pObj = document.createElement("p");//
+        
+        */
+        //第一步创建随机数对象 ---用构造函数的方法 ---这个随机数对象后面还需要用到,所以才用给window添加属性的方式变成全局变量
+        //采用自调用函数的方式将局部变量变成全局变量
+        (function(win){
+            function Random(){
+
+            }
+            Random.prototype.getRandom=function(min,max){
+                return Math.floor(Math.random()*(max-min));//[1,4]的整数
+            }
+            //创建一个随机数实例对象,把这个实例对象当成window的属性变成全局变量   ---这个随机数对象在后面调用原型对象里的getRandom方法产生随机数
+            var rm=new Random();
+            win.random=rm;
+        })(window);
+        console.log(window.random);
+
+        //随机产生一个小方块放在地图里map
+
+            //获取地图
+            var map=document.querySelector('.map');//父元素
+        function createBlock(){
+            //创建小方块---采用构造函数的方式
+            //小方块有宽高 背景颜色颜色
+            function Block(width,height,color){
+                this.width=width;
+                this.height=height;
+                this.color=color;
+                this.x=0;
+                this.y=0;
+                this.element=document.createElement('div');  
+            }
+            //给小方块的原型对象上添加方法---显示小方块,和小方块的位置
+            Block.prototype.init=function(map){
+               //设置小方块的样式
+            var div=this.element;
+            console.log(div);
+            div.style.position='absolute';
+            div.style.width=this.width+"px";
+            div.style.height=this.height+"px";
+            div.style.backgroundColor=this.color;
+            //把小方块加到地图中
+            
+            map.appendChild(div);
+            //小方块的位置
+                this.coordinate(map);
+            }
+            
+            //给小方块的原型对象上添加方法----确定小方块的位置
+            Block.prototype.coordinate=function(map){
+                //这个方法随机产生横坐标和纵坐标
+                var x=random.getRandom(0,map.offsetWidth/this.width)*this.width;
+                var y=random.getRandom(0,map.offsetHeight/this.height)*this.height;
+                this.x=x;
+                this.y=y;
+                console.log(x+'====='+y)
+                var div=this.element;
+                div.style.left=x+'px';
+                div.style.top=y+'px';
+            }
+
+            var block=new Block(20,20,'green');
+            block.init(map);
+          }
+        createBlock();
+
+    </script>
+</body>
+</html>

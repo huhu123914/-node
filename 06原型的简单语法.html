@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Student(name,age,sex){
+            this.name=name;
+            this.age=age;
+            this.sex=sex;
+        }
+        Student.prototype={
+            constructor:Student,
+            height:'188',
+            weight:"55kg",
+            eat:function(){
+                console.log("我要吃");
+            },
+            sleep:function(){
+                console.log('我要睡')
+            }
+        }
+        var stu=new Student('小花',22,'女');
+        stu.eat();
+        stu.sleep();
+        console.dir(stu);
+        console.dir(Student);
+    </script>
+</body>
+</html>

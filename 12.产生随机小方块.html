@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .map{
+            width:800px;
+            height:600px;
+            background: #ccc;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="map"></div>
+    <script>
+        /*
+           //如何把局部变量变成全局变量
+        //---把局部变量给window下的一个属性就可以了
+        
+        
+        */
+    // 小方块宽20,40个小方块
+        //使用自调用函数的方式,分号一定要加上 创建随机数对象 利用这个随机数对象产生随机数
+        (function(win){
+        //产生随机数对象的构造函数
+        function Random(){
+        }
+        //在原型对象中添加方法
+        Random.prototype.getRandom=function(min,max){
+            return Math.floor(Math.random()*(max-min));//0-40
+        }
+                    //实例随机数对象
+            //     var rm=new Random();
+            //    console.log(rm.getRandom());
+            win.random=new Random();
+                })(window);
+
+        //产生小方块对象
+    function createBlock(){
+            //选择器的方式来获取地图元素对象
+            var map=document.querySelector('.map');
+            console.log(map.offsetHeight);
+            //小方块的构造函数
+        function Block(width,height,color){
+                this.width=width||20;//默认的小方块的宽
+                this.height=height||20;//默认的小方块的高
+                //横坐标纵坐标
+                this.x=0;//随机产生
+                this.y=0;//随机产生
+                this.color=color;//小方块的背景颜色
+                this.element=document.createElement('div');//小方块的元素
+            }
+            //初始化小方块显示的效果及位置---显示在地图上
+            Block.prototype.init=function(map){
+                //设置小方块的样式
+                //实例对象 小方块元素div 调用该方法
+                var div=this.element;//小方块元素
+                console.log(div);
+                div.style.position='absolute';
+                div.style.width=this.width+'px';
+                div.style.height=this.height+'px';
+                div.style.backgroundColor=this.color;
+                //把小方块加到map地图中  //把创建后的子元素追加到父级元素中 my$("dv").appendChild(pObj); 
+                map.appendChild(div);
+                this.coordinate(map);
+            }
+            //在原型的对象方法中可以调用另外一个原型的方法,也可以使用其他原型对象的属性
+            Block.prototype.coordinate=function(map){
+                    //这个方法产生随机位置横坐标 纵坐标
+                    var x=random.getRandom(0,map.offsetWidth/this.width)*this.width;//[0-40]*20
+                    var y=random.getRandom(0,map.offsetHeight/this.height)*this.height;//[0-40]*20
+                    console.log(x+'======'+y);
+                    this.x=x;
+                    this.y=y;
+                    var div=this.element;
+                    div.style.left=this.x+'px';
+                    div.style.top=this.y+'px';
+
+                }
+
+            var block=new Block(20,20,'green');
+            block.init(map);
+        };
+        createBlock();
+        /*
+        offsetWidth是对象看到的宽度（含边线，如滚动条的占用的宽），style.width也是对象看到的宽度，区别在于计算对象位置时，typeof oUl.style.width结果是个string对象，不能直接用于算术运算，有时也看到有人用parseInt(oUl.styl。*/
+
+    </script>
+</body>
+</html>
